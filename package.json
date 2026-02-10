@@ -1,0 +1,40 @@
+{
+  "name": "slicejs-mcp",
+  "version": "1.0.0",
+  "description": "MCP server for Slicejs documentation access",
+  "license": "MIT",
+  "author": "",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": {
+    "slicejs-mcp": "./dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepare": "npm run build",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "fastmcp": "^3.32.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "mcp",
+    "slicejs",
+    "slice.js",
+    "documentation",
+    "slicejs-web-framework",
+    "llm"
+  ]
+}
