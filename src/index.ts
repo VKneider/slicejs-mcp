@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { FastMCP } from "fastmcp";
 import { listDocsTool } from "./tools/list-docs.js";
 import { searchDocsTool } from "./tools/search-docs.js";
