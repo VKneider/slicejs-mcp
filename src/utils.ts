@@ -112,8 +112,9 @@ export async function initializeDocsStructure(): Promise<void> {
     } else {
       console.error('[MCP] Using cached llm.txt to build docs structure');
     }
-    // Parse DOCS_STRUCTURE from llm.txt
-    DOCS_STRUCTURE = parseDocsFromLlmTxt(llmContent);
+    // Parse DOCS_STRUCTURE from llm.txt and cache each doc's body, so
+    // search_docs / get_doc_content run in-memory with no per-doc fetches.
+    DOCS_STRUCTURE = parseDocsFromLlmTxt(llmContent, true);
     isInitialized = true;
     console.error(`[MCP] Initialized docs structure with ${DOCS_STRUCTURE.length} documents`);
   } catch (error) {
@@ -122,10 +123,15 @@ export async function initializeDocsStructure(): Promise<void> {
   }
 }
 
-// Function to parse docs structure from llm.txt content
-export function parseDocsFromLlmTxt(content: string): DocItem[] {
+// Function to parse docs structure from llm.txt content.
+// `cacheContent` also stores each doc's body in the shared cache keyed by id —
+// so search_docs / get_doc_content never re-fetch (llm.txt already has it all).
+export function parseDocsFromLlmTxt(content: string, cacheContent = false): DocItem[] {
   const items: DocItem[] = [];
-  const sections = content.split(/\n=== /).slice(1);
+  // Prepend a newline so the very first section (which has no leading "\n"
+  // before its "=== " marker) is captured too. Without this, split().slice(1)
+  // silently drops the first doc (e.g. markdown/api-reference.md).
+  const sections = ('\n' + content).split(/\n=== /).slice(1);
 
   console.error(`[MCP] Parsing ${sections.length} sections from llm.txt`);
 
@@ -147,6 +153,8 @@ export function parseDocsFromLlmTxt(content: string): DocItem[] {
         path: filePath,
         title,
       });
+
+      if (cacheContent) setCache(id, docContent);
     } else {
       console.error(`[MCP] Skipped section from llm.txt: ${lines[0]}, has filePath: ${!!filePath}, docContent length: ${docContent.length}`);
     }

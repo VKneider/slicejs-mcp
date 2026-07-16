@@ -21,26 +21,14 @@ export const getLlmFullContextTool = {
       setCache('llm.txt', content);
       console.error('[MCP] Fetched and cached llm.txt, now populating individual doc cache');
 
-      // Populate cache with individual docs from llm.txt
-      const sections = content.split(/\n=== /).slice(1); // Skip first empty
-      let populatedCount = 0;
-      for (const section of sections) {
-        const lines = section.split('\n');
-        const filePath = lines[0].replace(' ===', ''); // e.g., 'markdown/getting-started.md'
-        const docContent = lines.slice(1).join('\n').trim();
-        if (filePath && docContent) {
-          // Compute cache key as doc id: remove 'markdown/' prefix and '.md' suffix
-          const docId = filePath.replace(/^markdown\//, '').replace(/\.md$/, '');
-          setCache(docId, docContent);
-          populatedCount++;
-        }
-      }
-      console.error(`[MCP] Populated cache with ${populatedCount} individual docs`);
+      // Parse once (shared logic, first-section-safe) and cache every doc body.
+      const docs = parseDocsFromLlmTxt(content, true);
+      console.error(`[MCP] Populated cache with ${docs.length} individual docs`);
 
-      // Update DOCS_STRUCTURE if already initialized
+      // Keep DOCS_STRUCTURE in sync if it was already built.
       if (isInitialized) {
         DOCS_STRUCTURE.length = 0; // Clear the array
-        DOCS_STRUCTURE.push(...parseDocsFromLlmTxt(content));
+        DOCS_STRUCTURE.push(...docs);
         console.error(`[MCP] Updated DOCS_STRUCTURE to ${DOCS_STRUCTURE.length} documents from llm.txt`);
       }
 
