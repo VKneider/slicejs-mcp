@@ -18,8 +18,14 @@ export function setCache(key: string, content: string): void {
   cache.set(key, { content, timestamp: Date.now() });
 }
 
-export const BASE_URL = 'https://raw.githubusercontent.com/VKneider/slicejs_docs/master/';
-export const API_BASE = 'https://api.github.com/repos/VKneider/slicejs_docs/contents/';
+const withTrailingSlash = (value: string): string => `${value.replace(/\/+$/, '')}/`;
+
+export const BASE_URL = withTrailingSlash(
+  process.env.SLICE_FRAMEWORK_DOCS_BASE_URL || 'https://raw.githubusercontent.com/VKneider/slicejs_docs/master/'
+);
+export const API_BASE = withTrailingSlash(
+  process.env.SLICE_FRAMEWORK_DOCS_API_BASE || 'https://api.github.com/repos/VKneider/slicejs_docs/contents/'
+);
 
 export interface DocItem {
   id: string;

@@ -3,7 +3,7 @@ import { DOCS_STRUCTURE, fetchDocContent, initializeDocsStructure, isInitialized
 
 export const getDocContentTool = {
   name: "get_doc_content",
-  description: "Fetches full content of specific doc page(s)",
+  description: "Fetches full content of specific Slice.js framework documentation page(s)",
   parameters: z.object({
     doc_id: z.union([z.string(), z.array(z.string())]),
     include_metadata: z.boolean().optional().default(false),

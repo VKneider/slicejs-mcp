@@ -83,7 +83,7 @@ function scoreDoc(
 export const searchDocsTool = {
   name: "search_docs",
   description:
-    "Search across all Slice.js docs. Tokenizes the query and returns the most relevant documents ranked by score (title/heading matches and term coverage rank higher), each with its best snippets and the section they fall under. Use the returned doc_id with get_doc_content to read the full page.",
+    "Search across the Slice.js framework documentation. Tokenizes the query and returns the most relevant documents ranked by score (title/heading matches and term coverage rank higher), each with its best snippets and the section they fall under. Use the returned doc_id with get_doc_content to read the full page.",
   parameters: z.object({
     query: z.string(),
     max_results: z.number().optional().default(5),

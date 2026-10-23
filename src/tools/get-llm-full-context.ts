@@ -3,7 +3,7 @@ import { getCached, setCache, BASE_URL, parseDocsFromLlmTxt, DOCS_STRUCTURE, isI
 
 export const getLlmFullContextTool = {
   name: "get_llm_full_context",
-  description: "Fetches the complete documentation bundle (~2000 lines, consumes considerable tokens but provides all documentation in one go). IMPORTANT: Ask the user for confirmation before executing this tool as it will add the entire Slice.js documentation to the context.",
+  description: "Fetches the complete Slice.js framework documentation bundle (~2000 lines, consumes considerable tokens but provides all framework documentation in one go). IMPORTANT: Ask the user for confirmation before executing this tool as it will add the entire framework documentation to the context.",
   parameters: z.object({}),
   execute: async () => {
     const cached = getCached('llm.txt');

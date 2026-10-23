@@ -3,7 +3,7 @@ import { DOCS_STRUCTURE, initializeDocsStructure, isInitialized } from "../utils
 
 export const listDocsTool = {
   name: "list_docs",
-  description: "Returns available documentation sections/categories",
+  description: "Returns available Slice.js framework documentation sections and categories",
   parameters: z.object({}),
   execute: async () => {
     if (!isInitialized) await initializeDocsStructure();

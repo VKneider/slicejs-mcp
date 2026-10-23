@@ -32,7 +32,8 @@ npx slicejs-mcp
 ```
 
 ### Integration with MCP Clients
-This server is designed to work with MCP-compatible clients. When launched, it exposes 4 tools:
+This server is designed to work with MCP-compatible clients. When launched, it exposes the
+original framework tools plus namespace-aware tools for the Slice.js Components catalog:
 
 ## Tools
 
@@ -81,6 +82,34 @@ Fetches the complete documentation bundle (~2000 lines) for comprehensive LLM co
 
 **Note:** This consumes considerable tokens but provides all documentation in one request.
 
+### Framework catalog tools
+
+These tools make the documentation source explicit while preserving the original tools above:
+
+- `slice_framework_list_docs`
+- `slice_framework_search_docs`
+- `slice_framework_get_doc`
+
+They read from `slicejs_docs` and return authored Markdown plus provenance metadata.
+
+### Slice.js Components catalog tools
+
+These tools provide access to Visual and Service component documentation:
+
+- `slice_components_list_docs`
+- `slice_components_search_docs`
+- `slice_components_get_doc`
+
+The Components tools read the catalog manifest published by `slice.js_visual_library` and retrieve
+the original Markdown document, including its examples and `:::script` blocks. They do not execute
+documentation examples or modify the project.
+
+The catalog manifest is expected at:
+
+```text
+https://raw.githubusercontent.com/VKneider/slice.js_visual_library/master/agent/docs-manifest.json
+```
+
 ## Examples
 
 ### List all documentation
@@ -111,10 +140,25 @@ await callTool("get_llm_full_context", {});
 
 ## Architecture
 
-- **Source**: Documentation fetched from https://github.com/VKneider/slicejs_docs
+- **Framework source**: Documentation fetched from https://github.com/VKneider/slicejs_docs
+- **Components source**: Markdown and manifest fetched from https://github.com/VKneider/slice.js_visual_library
 - **Caching**: Infinite session cache prevents redundant API calls
 - **Initialization**: Lazy loading of document structure on first tool use
 - **Rate Limiting**: Optimized to stay within GitHub API limits (60 req/hour)
+
+The two catalogs are separate because framework behavior and component APIs have different
+versioning and ownership. The MCP uses the same list/search/get pattern for both sources, while
+the authored Markdown remains the canonical content.
+
+Environment overrides are available for local development and mirrors:
+
+```text
+SLICE_FRAMEWORK_DOCS_BASE_URL
+SLICE_FRAMEWORK_DOCS_REVISION
+SLICE_FRAMEWORK_DOCS_API_BASE
+SLICE_COMPONENTS_MANIFEST_URL
+SLICE_COMPONENTS_RAW_BASE_URL
+```
 
 ## Development
 
