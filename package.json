@@ -1,9 +1,17 @@
 {
   "name": "slicejs-mcp",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "MCP server for Slicejs documentation access",
   "license": "MIT",
   "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/VKneider/slicejs-mcp.git"
+  },
+  "homepage": "https://github.com/VKneider/slicejs-mcp",
+  "bugs": {
+    "url": "https://github.com/VKneider/slicejs-mcp/issues"
+  },
   "type": "module",
   "main": "./dist/index.js",
   "bin": {

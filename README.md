@@ -100,14 +100,14 @@ These tools provide access to Visual and Service component documentation:
 - `slice_components_search_docs`
 - `slice_components_get_doc`
 
-The Components tools read the catalog manifest published by `slice.js_visual_library` and retrieve
+The Components tools read the catalog manifest published by `slicejs-components` and retrieve
 the original Markdown document, including its examples and `:::script` blocks. They do not execute
 documentation examples or modify the project.
 
 The catalog manifest is expected at:
 
 ```text
-https://raw.githubusercontent.com/VKneider/slice.js_visual_library/master/agent/docs-manifest.json
+https://raw.githubusercontent.com/VKneider/slicejs-components/master/agent/docs-manifest.json
 ```
 
 ## Examples
@@ -141,7 +141,7 @@ await callTool("get_llm_full_context", {});
 ## Architecture
 
 - **Framework source**: Documentation fetched from https://github.com/VKneider/slicejs_docs
-- **Components source**: Markdown and manifest fetched from https://github.com/VKneider/slice.js_visual_library
+- **Components source**: Markdown and manifest fetched from https://github.com/VKneider/slicejs-components
 - **Caching**: Infinite session cache prevents redundant API calls
 - **Initialization**: Lazy loading of document structure on first tool use
 - **Rate Limiting**: Optimized to stay within GitHub API limits (60 req/hour)

@@ -26,8 +26,8 @@ interface ComponentsManifest {
 }
 
 const DEFAULT_FRAMEWORK_BASE_URL = "https://raw.githubusercontent.com/VKneider/slicejs_docs/master/";
-const DEFAULT_COMPONENTS_MANIFEST_URL = "https://raw.githubusercontent.com/VKneider/slice.js_visual_library/master/agent/docs-manifest.json";
-const DEFAULT_COMPONENTS_RAW_BASE_URL = "https://raw.githubusercontent.com/VKneider/slice.js_visual_library";
+const DEFAULT_COMPONENTS_MANIFEST_URL = "https://raw.githubusercontent.com/VKneider/slicejs-components/master/agent/docs-manifest.json";
+const DEFAULT_COMPONENTS_RAW_BASE_URL = "https://raw.githubusercontent.com/VKneider/slicejs-components";
 
 const catalogCache = new Map<CatalogSource, Promise<CatalogDocument[]>>();
 const contentCache = new Map<string, Promise<string>>();

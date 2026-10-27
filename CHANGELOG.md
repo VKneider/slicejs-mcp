@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.2.1] - 2026-10-26
+
+### Fixed
+
+- Pointed the default Components catalog manifest and raw URLs at the renamed
+  `slicejs-components` repository. The old `slice.js_visual_library` URLs relied on GitHub redirects.
+- Environment overrides (`SLICE_COMPONENTS_MANIFEST_URL`, `SLICE_COMPONENTS_RAW_BASE_URL`) still
+  take precedence.
+
 ## [1.2.0] - 2026-10-23
 
 ### Added
